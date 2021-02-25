@@ -15,6 +15,7 @@ class _HomeState extends State<Home> {
   String _infoText = 'Pode Entrar';
 
   void _changePeople(int delta) {
+    /** setState serve para setar o estado da variavel, para que a tela atualize */
     setState(() {
       _people += delta;
       if (_people < 0) {
@@ -29,20 +30,24 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    /** stack é para q os elementos se sobreponham do 1 para o ultimo */
     return Stack(
       children: <Widget>[
         Image.asset(
           'images/restaurant.jpg',
+          /** define como a imagem vai se comportar */
           fit: BoxFit.cover,
           height: 1000.0,
         ),
         Column(
+          /** alinha as colunas no centro */
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Pessoas: $_people', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                /** componente para gerar espaçamento entre os outros elementos */
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: FlatButton(

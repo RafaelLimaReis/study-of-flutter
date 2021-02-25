@@ -84,6 +84,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.amber,
         centerTitle: true,
       ),
+      /** futureBuilder é para trabalhar com telas que necessitam esperar a resposta do servidor */
       body: FutureBuilder<Map>(
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {

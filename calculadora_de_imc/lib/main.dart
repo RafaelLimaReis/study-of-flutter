@@ -9,6 +9,9 @@ void main() {
   ));
 }
 
+/**
+ * isso é um componente com estado
+ */
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -16,9 +19,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  /** controles para edição de inputs no formulario */
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
 
+  /** objetos com os erros do formulario */
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _infoText = 'Informe seus dados';
@@ -62,6 +67,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    /** scaffold facilita a criação da estrutura da pagina */
     return Scaffold(
       appBar: AppBar(
         title: Text('Calculadora de IMC'),
@@ -72,6 +78,7 @@ class _HomeState extends State<Home> {
         ],
       ),
       backgroundColor: Colors.white,
+      /** SingleChildScrollView serve para escrolar quando o teclado fica em cima dos inputs */
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
         child: Form(
