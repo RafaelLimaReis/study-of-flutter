@@ -3,6 +3,7 @@ import 'package:buscador_gifs/ui/gif_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Future<Map> _getGifs() async {
     http.Response response;
 
-    if (_search == null) {
+    if (_search == null || _search.isEmpty) {
       response = await http.get('https://api.giphy.com/v1/gifs/trending?api_key=yamzCPhKzQHUaAoXsDJltMLlSB2NUS4I&limit=20&rating=g');
     } else {
       response = await http.get('https://api.giphy.com/v1/gifs/search?api_key=yamzCPhKzQHUaAoXsDJltMLlSB2NUS4I&q=$_search&limit=19&offset=$_offset&rating=g&lang=en');
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _getCount(List data) {
-    if (_search == null) {
+    if (_search == null || _search.isEmpty) {
       return data.length;
     } else {
       return data.length + 1;
@@ -114,6 +115,21 @@ class _HomePageState extends State<HomePage> {
               snapshot.data['data'][index]['images']['fixed_height']['url'],
               height: 300.0,
               fit: BoxFit.cover,
+              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
+                if (loadingProgress == null) return child;
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300.0,
+                  child: Shimmer.fromColors(
+                    child: Card(
+                      color: Colors.grey,
+                    ),
+                    baseColor: Colors.white70,
+                    highlightColor: Colors.grey[700],
+                    direction: ShimmerDirection.ltr,
+                  )
+                );
+              },
             ),
           );
         } else {
